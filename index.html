@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spamcasts — coming online</title>
+  <meta name="description" content="Spamcasts: a side-channel for raw thoughts, recordings, and experiments." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { color-scheme: dark; }
+    body { background: #0a0a0a; color: #e5e5e5; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <header class="sticky top-0 z-10 border-b border-zinc-800/80 bg-black/50 backdrop-blur">
+    <div class="mx-auto max-w-4xl px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2 font-semibold">
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-emerald-500 text-black font-black">S</span>
+        <span>Spamcasts</span>
+      </div>
+      <nav class="text-sm text-zinc-300">
+        <a href="#about" class="hover:text-white">About</a>
+        <span class="mx-2 text-zinc-600">•</span>
+        <a href="#join" class="hover:text-white">Join</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-4xl w-full px-4 py-16 grid gap-12">
+    <section class="text-center">
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
+        Cutting through the noise, <span class="text-emerald-400">one cast</span> at a time.
+      </h1>
+      <p class="mt-4 text-zinc-300 max-w-2xl mx-auto">
+        Spamcasts is a home for conversations, experiments, and side-channel ideas.
+      </p>
+      <div class="mt-6 flex justify-center">
+        <a href="#join" class="rounded-2xl bg-emerald-500 text-black font-semibold px-5 py-3 hover:bg-emerald-400">Get updates</a>
+      </div>
+    </section>
+
+    <section id="about" class="grid md:grid-cols-3 gap-4">
+      <div class="rounded-2xl border border-zinc-800 p-4">
+        <h3 class="font-semibold">Raw > Polished</h3>
+        <p class="mt-2 text-sm text-zinc-300">Sketches, voice notes, and ideas before they fossilize.</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 p-4">
+        <h3 class="font-semibold">Experiments</h3>
+        <p class="mt-2 text-sm text-zinc-300">Formats we haven’t tried yet, and some we shouldn’t.</p>
+      </div>
+      <div class="rounded-2xl border border-zinc-800 p-4">
+        <h3 class="font-semibold">Community</h3>
+        <p class="mt-2 text-sm text-zinc-300">Small circle. High signal. Occasionally weird.</p>
+      </div>
+    </section>
+
+    <section id="join" class="rounded-3xl border border-zinc-800 p-6">
+      <h2 class="text-2xl font-bold">Join the early list</h2>
+      <p class="mt-1 text-sm text-zinc-400">We’ll email you when the first casts drop. No spam (lol).</p>
+
+      <!-- Replace the action URL with your own Formspree/Formspark endpoint when ready -->
+      <form id="waitlist" class="mt-4 grid gap-3 max-w-md" onsubmit="return submitWaitlist(event)">
+        <input type="email" required placeholder="you@domain.com"
+               class="rounded-xl bg-zinc-950 border border-zinc-800 px-4 py-3 text-sm outline-none focus:border-emerald-500" />
+        <button class="rounded-xl bg-emerald-500 text-black font-semibold px-5 py-3 hover:bg-emerald-400">
+          Save my spot
+        </button>
+        <p id="msg" class="text-sm text-zinc-400 hidden">Thanks — you’re on the list.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="mt-auto border-t border-zinc-800">
+    <div class="mx-auto max-w-4xl px-4 py-10 text-sm text-zinc-500">
+      © <span id="y"></span> Spamcasts • <a class="hover:text-zinc-300" href="mailto:hello@spamcasts.com">hello@spamcasts.com</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Temporary waitlist handler: stores locally and fakes success.
+    function submitWaitlist(e) {
+      e.preventDefault();
+      const input = e.target.querySelector('input[type="email"]');
+      const email = input.value.trim();
+      if (!email) return false;
+      try {
+        const key = 'spamcasts_waitlist';
+        const list = JSON.parse(localStorage.getItem(key) || '[]');
+        list.push({ email, ts: Date.now() });
+        localStorage.setItem(key, JSON.stringify(list));
+        e.target.reset();
+        document.getElementById('msg').classList.remove('hidden');
+      } catch {}
+      return false;
+    }
+  </script>
+</body>
+</html>
+

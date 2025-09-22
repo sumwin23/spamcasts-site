@@ -14,51 +14,37 @@
       </stop>
     </linearGradient>
 
-    <!-- Soft outer glow -->
+    <!-- Soft neon glow -->
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feGaussianBlur stdDeviation="3" result="b"/>
       <feMerge>
-        <feMergeNode in="blur"/>
+        <feMergeNode in="b"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-
-    <!-- Subtle pulsing -->
-    <style><![CDATA[
-      #sigil { animation: pulse 2.4s ease-in-out infinite; }
-      @keyframes pulse {
-        0%,100% { filter: url(#glow); opacity: 1; }
-        50%     { filter: url(#glow); opacity: .9; }
-      }
-    ]]></style>
   </defs>
 
-  <!-- Group so we can animate/pulse the whole mark -->
-  <g id="sigil" transform="translate(0,0)">
-    <!-- outer ring (optional frame) -->
-    <circle cx="100" cy="100" r="88"
-            fill="none" stroke="url(#rainbow)" stroke-width="4"/>
+  <g filter="url(#glow)" fill="none" stroke="url(#rainbow)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer ring -->
+    <circle cx="100" cy="100" r="88" stroke-width="4"/>
 
-    <!-- TEAR outline (duplicated: fat glow underlay + crisp outline) -->
-    <path id="tear"
-          d="M100 22
-             C140 82, 170 116, 170 144
-             c0 46-32 82-70 82s-70-36-70-82
-             c0-28 30-62 70-122z"
-          fill="none" stroke="url(#rainbow)" stroke-width="12" opacity=".28"/>
-
+    <!-- Tear outline (double stroke for extra glow) -->
     <path d="M100 22
              C140 82, 170 116, 170 144
              c0 46-32 82-70 82s-70-36-70-82
              c0-28 30-62 70-122z"
-          fill="none" stroke="url(#rainbow)" stroke-width="6"/>
+          stroke-width="12" opacity="0.28"/>
+    <path d="M100 22
+             C140 82, 170 116, 170 144
+             c0 46-32 82-70 82s-70-36-70-82
+             c0-28 30-62 70-122z"
+          stroke-width="6"/>
 
-    <!-- LADDER spine -->
-    <line x1="100" y1="92" x2="100" y2="198"
-          stroke="url(#rainbow)" stroke-width="6" stroke-linecap="round"/>
+    <!-- Ladder spine -->
+    <line x1="100" y1="92" x2="100" y2="198" stroke-width="6"/>
 
-    <!-- LADDER rungs -->
-    <g stroke="url(#rainbow)" stroke-width="5" stroke-linecap="round">
+    <!-- Ladder rungs -->
+    <g stroke-width="5">
       <line x1="76" y1="116" x2="124" y2="116"/>
       <line x1="76" y1="134" x2="124" y2="134"/>
       <line x1="76" y1="152" x2="124" y2="152"/>
@@ -66,11 +52,4 @@
       <line x1="76" y1="188" x2="124" y2="188"/>
     </g>
   </g>
-
-  <!-- Gentle rotation of the gradient for extra life -->
-  <animateTransform xlink:href="#sigil"
-                    attributeName="transform"
-                    type="rotate"
-                    from="0 100 100" to="360 100 100"
-                    dur="40s" repeatCount="indefinite"/>
 </svg>

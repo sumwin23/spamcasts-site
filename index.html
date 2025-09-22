@@ -27,7 +27,6 @@
 
     .stage{ text-align:center; padding:6vmin 5vmin; }
 
-    /* CLOUDY + SHARP-BLUE-OUTLINE TEXT */
     .cloud-text{
       --size: clamp(3rem, 14vw, 12rem);
       font-size: var(--size);
@@ -37,19 +36,15 @@
       color: var(--ink);
       position: relative;
       text-transform: uppercase;
-      /* SHARP outline (WebKit) + fallback via layered shadows */
-      -webkit-text-stroke: 8px var(--blue);
+      -webkit-text-stroke: 6px var(--blue);
       text-shadow:
-        /* hard rim fallback */
         0 0 0 var(--blue),
         0 0 12px var(--blue),
         0 0 24px var(--blue-deep),
-        /* fluffy white halo */
         0 0 8px #fff,
         0 0 18px #fff;
     }
 
-    /* Soft cloud behind the word */
     .cloud-text::before{
       content: attr(data-text);
       position:absolute; inset:-2vmin -2.5vmin; z-index:-1;
@@ -62,64 +57,38 @@
         0 0 140px var(--blue-deep);
     }
 
-    /* Per-letter spans get the blink */
     .cloud-letter{
       display:inline-block;
-      /* two animations: hard blink for outline; micro jitter for sign vibe */
       animation:
-        hardBlink 1.1s infinite steps(1, end),
+        hardBlink 1.2s infinite steps(1, end),
         jitter 2.4s ease-in-out infinite;
     }
 
-    /* HARD blue-outline blink + glow surge */
     @keyframes hardBlink {
-      0% {
-        /* fully ON */
+      0%, 35%, 100% {
         opacity:1;
-        filter:none;
         text-shadow:
           0 0 0 var(--blue),
           0 0 14px var(--blue),
           0 0 34px var(--blue-deep),
           0 0 8px #fff,
           0 0 18px #fff;
-        -webkit-text-stroke: 8px var(--blue);
-      }
-      38% { opacity:1; -webkit-text-stroke: 8px var(--blue); }
-      40% {
-        /* snap OFF */
-        opacity:.65;
-        text-shadow:
-          0 0 0 rgba(0,0,0,0),
-          0 0 3px rgba(0,0,0,0),
-          0 0 6px rgba(0,0,0,0),
-          0 0 4px #fff,
-          0 0 10px #fff;
-        -webkit-text-stroke: 0 transparent;
-      }
-      46% { opacity:.9; }
-      55% {
-        /* quick sputter */
-        opacity:1;
-        text-shadow:
-          0 0 0 var(--blue),
-          0 0 10px var(--blue),
-          0 0 26px var(--blue-deep),
-          0 0 6px #fff,
-          0 0 14px #fff;
         -webkit-text-stroke: 6px var(--blue);
       }
-      70% { opacity:.95; }
-      100% {
-        /* ON again, brightest */
-        opacity:1;
+      40% {
+        opacity:.5;
         text-shadow:
-          0 0 0 var(--blue),
-          0 0 16px var(--blue),
-          0 0 42px var(--blue-deep),
-          0 0 10px #fff,
-          0 0 22px #fff;
-        -webkit-text-stroke: 8px var(--blue);
+          0 0 2px #fff,
+          0 0 6px #fff;
+        -webkit-text-stroke: 0 transparent;
+      }
+      60% {
+        opacity:.9;
+        text-shadow:
+          0 0 10px var(--blue),
+          0 0 28px var(--blue-deep),
+          0 0 12px #fff;
+        -webkit-text-stroke: 4px var(--blue);
       }
     }
 
@@ -134,7 +103,6 @@
       letter-spacing:.04em;
     }
 
-    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce){
       *, *::before, *::after{
         animation-duration:0.01ms !important;
@@ -151,7 +119,6 @@
   </div>
 
   <script>
-    // Build per-letter spans and randomize blink delays so letters flicker out of sync
     const el = document.getElementById('headline');
     const text = el.textContent.trim();
     const frag = document.createDocumentFragment();
@@ -159,8 +126,7 @@
       const span = document.createElement('span');
       span.className = 'cloud-letter';
       span.textContent = ch;
-      // random desync so the sign feels alive
-      const d = (i * 0.07) + (Math.random() * 0.45);
+      const d = (i * 0.07) + (Math.random() * 0.5);
       span.style.animationDelay = `${d}s, ${d/2}s`;
       frag.appendChild(span);
     });

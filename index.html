@@ -60,19 +60,111 @@
       animation: glowPulse 3.2s ease-in-out infinite, flicker 8.5s steps(1,end) infinite;
     }
 
-    /* subtle soft cloud behind text */
-    .cloud-text::before{
-      content: attr(data-text);
-      position:absolute; inset:-1.5vmin -2vmin;
-      z-index:-1;
-      filter: blur(18px) brightness(1.15);
-      opacity:.9;
-      color: rgba(255,255,255,.9);
+    <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SPAMCASTS — neon clouds</title>
+  <meta name="description" content="Neon-pink splash page with fluffy, blinking, cloudlike letters that glow blue on and off." />
+  <style>
+    :root{
+      --bg: #ff0ab7;          /* neon pink */
+      --ink: #ffffff;         /* text base */
+      --blue1: #00f6ff;       /* bright cyan blue */
+      --blue2: #009dff;       /* deep neon blue */
+    }
+
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      background: var(--bg);
+      display:grid; place-items:center; min-height:100vh;
+      font-family: "Comic Sans MS", "Cooper Black", fantasy, cursive;
+      overflow:hidden;
+    }
+
+    .stage{
+      text-align:center;
+      padding: 6vmin 5vmin;
+    }
+
+    .cloud-text{
+      --size: clamp(3rem, 15vw, 12rem);
+      font-size: var(--size);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      position: relative;
+      text-transform: uppercase;
       text-shadow:
-        0 0 30px rgba(255,255,255,.95),
-        0 0 60px rgba(255,255,255,.8),
-        0 0 90px var(--blue1),
-        0 0 120px var(--blue2);
+        0 0 6px #fff,
+        0 0 12px #fff,
+        0 0 18px var(--blue1),
+        0 0 36px var(--blue1),
+        0 0 48px var(--blue2),
+        0 0 64px var(--blue2);
+      animation: blinkGlow 1.2s infinite alternate;
+    }
+
+    @keyframes blinkGlow {
+      0% {
+        opacity: 1;
+        text-shadow:
+          0 0 6px #fff,
+          0 0 12px #fff,
+          0 0 18px var(--blue1),
+          0 0 36px var(--blue1),
+          0 0 48px var(--blue2),
+          0 0 64px var(--blue2);
+      }
+      45% {
+        opacity: 0.8;
+        text-shadow:
+          0 0 4px #fff,
+          0 0 8px #fff,
+          0 0 14px var(--blue1),
+          0 0 24px var(--blue1),
+          0 0 32px var(--blue2);
+      }
+      55% {
+        opacity: 0.5;
+        text-shadow:
+          0 0 2px #fff,
+          0 0 4px #fff,
+          0 0 8px var(--blue1);
+      }
+      100% {
+        opacity: 1;
+        text-shadow:
+          0 0 6px #fff,
+          0 0 12px #fff,
+          0 0 18px var(--blue1),
+          0 0 36px var(--blue1),
+          0 0 48px var(--blue2),
+          0 0 64px var(--blue2);
+      }
+    }
+
+    .tag{
+      margin-top: 3vmin;
+      font-size: clamp(.8rem, 1.8vw, 1rem);
+      color: rgba(255,255,255,.9);
+      text-shadow: 0 0 6px rgba(255,255,255,.8), 0 0 18px var(--blue2);
+      user-select: none;
+      letter-spacing:.04em;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <h1 id="headline" class="cloud-text">SPAMCASTS</h1>
+    <div class="tag">spamcasts.com</div>
+  </div>
+</body>
+</html>
+
     }
 
     /* Blue glow breathing + tiny jitter for neon vibe */

@@ -1,0 +1,70 @@
+:root{
+  --bg:#ff0ab7;           /* neon pink */
+  --ink:#fff;             /* paper-white text */
+  --ink-dim: #e5e5e5;
+  --ink-dark:#141414;
+  --glow: rgba(0,210,255,.85);
+  --btn:#141414;
+  --btn-ink:#fff;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: var(--ink);
+  min-height:100vh;
+  display:flex;flex-direction:column;
+}
+
+header{
+  display:flex;gap:16px;align-items:center;justify-content:space-between;
+  padding:14px 22px;border-bottom: 1px solid rgba(255,255,255,.15);
+  backdrop-filter: blur(4px);
+}
+header .brand{
+  display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em;
+}
+header .brand img{height:28px;filter:drop-shadow(0 0 6px var(--glow))}
+nav a{
+  color: var(--ink); text-decoration:none; padding:8px 12px; border-radius:8px;
+}
+nav a:hover{ background: rgba(255,255,255,.12) }
+
+.main{
+  width:min(1000px,92vw); margin: 48px auto; text-align:center;
+}
+
+h1.big{
+  font-size: clamp(40px, 9vw, 88px);
+  letter-spacing:.08em; margin: 10px 0 20px;
+  text-shadow: 0 0 18px var(--glow), 0 0 44px var(--glow);
+}
+
+p.lede{ font-size: clamp(16px, 2.4vw, 22px); color: var(--ink-dim) }
+
+.cta-row{
+  display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:28px;
+}
+
+.button{
+  display:inline-block; text-decoration:none; font-weight:700; letter-spacing:.02em;
+  padding:14px 18px; border-radius:12px; background:var(--btn); color:var(--btn-ink);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow: 0 8px 26px rgba(0,0,0,.25), 0 0 18px rgba(0,210,255,.15) inset;
+  transition:.15s transform ease, .15s box-shadow ease, .15s background ease;
+}
+.button:hover{ transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,.35), 0 0 28px rgba(0,210,255,.25) inset; }
+.button.light{ background:transparent; color:#141414; border-color:#141414; }
+.card-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap:16px; margin-top:32px; text-align:left;
+}
+.card{
+  background: rgba(255,255,255,.08); padding:16px; border-radius:14px;
+  border:1px solid rgba(255,255,255,.18);
+}
+.card h3{margin:0 0 6px}
+.card p{margin:0; color:var(--ink-dim)}
+footer{margin-top:auto; padding:22px; text-align:center; color:var(--ink-dim)}

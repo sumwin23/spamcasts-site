@@ -1,0 +1,108 @@
+:root {
+  --bg: #000;
+  --white: #fff;
+  --label-bg: #fff;
+  --label-text: #000;
+}
+
+* { box-sizing: border-box; }
+
+body.hall {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--white);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  display: grid;
+  place-items: center;
+}
+
+.hall-wrap {
+  width: min(1200px, 94vw);
+  padding: 28px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+@media (min-width: 860px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Door */
+.door-link { text-decoration: none; }
+.door {
+  position: relative;
+  height: clamp(320px, 52vw, 520px);
+  background: #000;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 0 40px rgba(255,255,255,0.05);
+  transition: box-shadow .2s ease;
+}
+
+/* the right-edge “crack” of light */
+.door::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 7%;
+  width: 2px; height: 100%;
+  background: rgba(255,255,255,0.95);
+  transition: width .15s ease;
+}
+
+/* epic spill using layered gradients + blur */
+.door::before {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 120% at 100% 50%, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.6) 30%, transparent 70%),
+    linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.2));
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  opacity: .95;
+  transition: opacity .2s ease, filter .2s ease;
+}
+
+/* hover state: a touch more dramatic */
+.door:hover { 
+  box-shadow: inset -6px 0 0 rgba(255,255,255,0.25), inset -30px 0 60px rgba(255,255,255,0.35);
+}
+.door:hover::after { width: 3px; }
+.door:hover::before { filter: blur(20px); opacity: 1; }
+
+/* Label at eye level */
+.label {
+  position: absolute; left: 50%; top: 42%;
+  transform: translateX(-50%);
+  background: var(--label-bg);
+  color: var(--label-text);
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: clamp(18px, 2.4vw, 26px);
+  letter-spacing: .02em;
+  box-shadow: 0 0 24px rgba(255,255,255,0.7);
+}
+
+/* White-page content style */
+.white {
+  background: #fff; color:#000; margin:0; min-height:100vh;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+.page {
+  max-width: 900px; margin: 0 auto; padding: 32px 20px 80px;
+}
+.page h1 { font-size: clamp(28px, 4vw, 44px); margin: 8px 0 12px; }
+.page p  { font-size: clamp(16px, 2.2vw, 18px); color: #444; }
+
+/* Optional: landing flash overlay when logo is clicked */
+.flash {
+  position: fixed; inset: 0; background: #fff; opacity: 0; pointer-events: none;
+  transition: opacity .28s ease;
+}
+.flash.on { opacity: 1; }

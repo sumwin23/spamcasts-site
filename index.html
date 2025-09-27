@@ -21,7 +21,8 @@
       display:grid; place-items:center;
       background:
         radial-gradient(1200px 800px at 30% 20%, var(--bg2) 0%, var(--bg1) 55%, #ff049e 100%);
-      font-family: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
       overflow:hidden;
     }
 
@@ -111,14 +112,22 @@
       }
     }
   </style>
+  <!-- Link to your new hall-of-doors CSS -->
+  <link href="./assets/doors.css" rel="stylesheet" />
 </head>
 <body>
-  <div class="stage">
-    <h1 id="headline" class="cloud-text" data-text="SPAMCASTS">SPAMCASTS</h1>
-    <div class="tag">spamcasts.com</div>
-  </div>
+  <!-- Flash overlay for the portal animation -->
+  <div id="portal-flash" class="flash" aria-hidden="true"></div>
+  <!-- Make the entire logo area a link to the doors hall -->
+  <a id="logo-portal" href="./pages/doors.html" style="text-decoration:none;">
+    <div class="stage">
+      <h1 id="headline" class="cloud-text" data-text="SPAMCASTS">SPAMCASTS</h1>
+      <div class="tag">spamcasts.com</div>
+    </div>
+  </a>
 
   <script>
+    // Existing code that animates the cloud letters
     const el = document.getElementById('headline');
     const text = el.textContent.trim();
     const frag = document.createDocumentFragment();
@@ -132,6 +141,24 @@
     });
     el.textContent='';
     el.appendChild(frag);
+  </script>
+
+  <!-- Optional script to flash white when clicking the logo, then navigate -->
+  <script>
+    (function() {
+      var link = document.getElementById('logo-portal');
+      var flash = document.getElementById('portal-flash');
+      if (link && flash) {
+        link.addEventListener('click', function(e) {
+          if (e.metaKey || e.ctrlKey) return;
+          e.preventDefault();
+          flash.classList.add('on');
+          setTimeout(function() {
+            window.location.href = link.getAttribute('href');
+          }, 260);
+        });
+      }
+    })();
   </script>
 </body>
 </html>

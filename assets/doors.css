@@ -106,3 +106,16 @@ body.hall {
   transition: opacity .28s ease;
 }
 .flash.on { opacity: 1; }
+
+/* Gallery layout for doodle images */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
